@@ -1,0 +1,79 @@
+#include <Arduino.h>
+#include <QTRSensors.h>
+
+// -------- QTR8A --------
+#define NUM_SENSORS 8
+uint8_t qtrPins[NUM_SENSORS] = {36, 39, 34, 35, 32, 33, 25, 26};
+QTRSensors qtr;
+
+// -------- TB6612FNG --------
+#define BIN1 19
+#define BIN2 18
+#define AIN1 16
+#define AIN2 17
+#define PWMA 4
+#define PWMB 21
+
+// -------- LED y botón --------
+#define LED_CALIBRACION 23
+#define BOTON 13
+
+// -------- PID --------
+float Kp = 0.08;
+float Kd = 4.00;
+int lastError = 0;
+
+// -------- Velocidad --------
+int velocidadMax = 185;
+int velocidadMin = 140;
+
+// -------- Motores --------
+void motores(int izq, int der) {
+  analogWrite(PWMA, izq);
+  analogWrite(PWMB, der);
+}
+
+// -------- Setup --------
+void setup() {
+  pinMode(AIN1, OUTPUT); digitalWrite(AIN1, LOW);
+  pinMode(AIN2, OUTPUT); digitalWrite(AIN2, HIGH);
+  pinMode(BIN1, OUTPUT); digitalWrite(BIN1, HIGH);
+  pinMode(BIN2, OUTPUT); digitalWrite(BIN2, LOW);
+  pinMode(PWMA, OUTPUT);
+  pinMode(PWMB, OUTPUT);
+  pinMode(LED_CALIBRACION, OUTPUT);
+  pinMode(BOTON, INPUT_PULLUP);
+
+  qtr.setTypeAnalog();
+  qtr.setSensorPins(qtrPins, NUM_SENSORS);
+
+  // Pulsar para calibrar
+  while (digitalRead(BOTON) == HIGH);
+  digitalWrite(LED_CALIBRACION, HIGH);
+  for (int i = 0; i < 400; i++) {
+    qtr.calibrate();
+    delay(20);
+  }
+  digitalWrite(LED_CALIBRACION, LOW);
+
+  // Pulsar para arrancar
+  while (digitalRead(BOTON) == LOW);
+  while (digitalRead(BOTON) == HIGH);
+  delay(300);
+}
+
+// -------- Loop --------
+void loop() {
+  uint16_t sensorValues[NUM_SENSORS];
+  uint16_t position = qtr.readLineWhite(sensorValues);
+
+  int error    = 3500 - position;
+  int derivada = error - lastError;
+  lastError    = error;
+
+  int ajuste  = (Kp * error) + (Kd * derivada);
+  int velBase = constrain(velocidadMax - (abs(error) * (velocidadMax - velocidadMin) / 3500), velocidadMin, velocidadMax);
+
+  motores(constrain(velBase + ajuste, 0, 255),
+          constrain(velBase - ajuste, 0, 255));
+}
