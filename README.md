@@ -72,6 +72,50 @@
 
 ---
 
+## 🔧 Hardware
+
+### Esquemático / Schematic
+> ESP32-DEVKITC-32D · TB6612 Motor Driver · L7805 · Array de 8 sensores IR
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Tomicmm/ALFONSOO/main/HARDWARE/HARDWAREimagenes/Screenshot%202026-06-29%20161056.png" alt="Esquemático ALFONSOO" width="100%"/>
+</div>
+
+<details>
+<summary>📋 Componentes principales / Main components</summary>
+
+| Componente | Descripción |
+|------------|-------------|
+| **ESP32-DEVKITC-32D** | Microcontrolador principal |
+| **TB6612 Breakout** | Driver dual de motores DC |
+| **L7805** | Regulador de tensión 5V |
+| **S1–S8** | Array de 8 sensores IR |
+| **SW_SPDT** | Switch de encendido |
+| **12V Screw Terminal** | Entrada de batería |
+
+</details>
+
+---
+
+### PCB Layout
+> Diseño "CEBOLLITA EVO+ 2026"
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Tomicmm/ALFONSOO/main/HARDWARE/HARDWAREimagenes/Screenshot%202026-06-29%20161026.png" alt="PCB ALFONSOO" width="80%"/>
+</div>
+
+---
+
+### 🖨️ Chasis 3D / 3D Chassis
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/Tomicmm/ALFONSOO/main/HARDWARE/HARDWAREimagenes/Screenshot%202026-06-29%20161205.png" alt="Chasis 3D ALFONSOO" width="70%"/>
+</div>
+
+> Estructura impresa en 3D con soporte para motores, PCB y sensores.
+
+---
+
 ## 🧠 Control PID
 
 <div align="center">
@@ -97,9 +141,9 @@ Output = Kp·e + Ki·∫e·dt + Kd·(de/dt)
 
 | 👤 | Nombre | Rol |
 |----|--------|-----|
-| 🔩 | **Tomás Colicchia** | Hardware & Ensamble |
+| ⚡ | **Tomás Colicchia** | Electrónica & Programación |
 | 🖨️ | **Santiago Avalos** | Chasis 3D & Diseño |
-| ⚡ | **Dante Bollo** |  Electrónica & Programación |
+| 🔩 | **Dante Bollo** | Hardware & Ensamble |
 
 </div>
 
