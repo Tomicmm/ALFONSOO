@@ -141,9 +141,9 @@ Output = Kp·e + Ki·∫e·dt + Kd·(de/dt)
 
 | 👤 | Nombre | Rol |
 |----|--------|-----|
-| ⚡ | **Tomás Colicchia** | Electrónica & Programación |
+| ⚡ | **Tomás Colicchia** | Hardware & Ensamble |
 | 🖨️ | **Santiago Avalos** | Chasis 3D & Diseño |
-| 🔩 | **Dante Bollo** | Hardware & Ensamble |
+| 🔩 | **Dante Bollo** | Electrónica & Programación |
 
 </div>
 
